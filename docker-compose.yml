@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    ports:
+      - 2345:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  node_app:
+    container_name: pratica_docker
+    build: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    env_file:
+      - .env
+volumes:
+  postgres:
